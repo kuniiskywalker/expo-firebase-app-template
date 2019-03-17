@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
-import EmailAndPasswordSignInForm from '../components/EmailAndPasswordSignInForm';
+import EmailAndPasswordSignUpForm from '../components/EmailAndPasswordSignUpForm';
 import FacebookLoginButton from '../components/FacebookLoginButton';
 
-export default class SignInScreen extends Component {
+export default class SignUpScreen extends Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
             <View style={{flex: 1}}>
-                <View style={styles.header}><Text style={styles.headerText}>SignIn</Text></View>
+                <View style={styles.header}><Text style={styles.headerText}>SignUp</Text></View>
                 <FacebookLoginButton />
-                <EmailAndPasswordSignInForm />
+                <EmailAndPasswordSignUpForm />
                 <Button
-                    title={"アカウントをお持ちでない方はこちら"}
+                    title={"アカウントをお持ちの方はこちら"}
                     onPress={() => {
-                        navigate('SignUp');
+                        navigate('SignIn');
                     }}
                 />
             </View>

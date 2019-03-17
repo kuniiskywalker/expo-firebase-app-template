@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, TouchableOpacity, Text, TextInput, ActivityIndicator, Button} from 'react-native';
-import {changeEmail, changePassword, submitLogin} from './actions';
+import {View, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
+import {changeEmail, changePassword, changeDisplayName, submitSignUp} from '../actions';
 
-class LoginForm extends Component {
+class EmailAndPasswordSignUpForm extends Component {
     onButtonPress() {
-        const {email, password} = this.props;
-        this.props.submitLogin({email, password});
+        const {email, password, displayName} = this.props;
+        this.props.submitSignUp({email, password, displayName});
     }
 
     loadSpinner() {
@@ -17,7 +17,7 @@ class LoginForm extends Component {
         return (
             <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle}>
                 <Text style={styles.textStyle}>
-                    ログイン
+                    アカウントを作成する
                 </Text>
             </TouchableOpacity>
         )
@@ -38,10 +38,19 @@ class LoginForm extends Component {
                 <View style={styles.wrap}>
                     <TextInput
                         secureTextEntry
-                        placeholder="password"
+                        placeholder="パスワード"
                         autoCorrect={false}
                         value={this.props.password}
                         onChangeText={password => this.props.changePassword(password)}
+                        style={styles.inputStyle}
+                    />
+                </View>
+                <View style={styles.wrap}>
+                    <TextInput
+                        placeholder="表示名"
+                        autoCorrect={false}
+                        value={this.props.displayName}
+                        onChangeText={displayName => this.props.changeDisplayName(displayName)}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -93,9 +102,10 @@ const mapStateToProps = state => {
     return {
         email: state.auth.email,
         password: state.auth.password,
+        displayName: state.auth.displayName,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }
 }
 
-export default connect(mapStateToProps, {changeEmail, changePassword, submitLogin})(LoginForm);
+export default connect(mapStateToProps, {changeEmail, changePassword, changeDisplayName, submitSignUp})(EmailAndPasswordSignUpForm);

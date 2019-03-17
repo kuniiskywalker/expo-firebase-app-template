@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button} from 'react-native';
-import {submitFacebookLogin} from './actions';
+import {submitFacebookLogin} from '../actions';
 
 class FacebookLoginButton extends Component {
     onButtonPress() {
