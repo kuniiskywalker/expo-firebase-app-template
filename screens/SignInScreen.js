@@ -4,6 +4,11 @@ import EmailAndPasswordSignInForm from '../components/EmailAndPasswordSignInForm
 import FacebookLoginButton from '../components/FacebookLoginButton';
 
 export default class SignInScreen extends Component {
+
+    static navigationOptions = ({navigation}) => ({
+        title: 'SignIn'
+    });
+
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -20,11 +25,3 @@ export default class SignInScreen extends Component {
         );
     }
 }
-
-SignInScreen.navigationOptions = ({navigation}) => {
-    return {
-        title: 'SignIn'
-    }
-};
-
-const styles = {};

@@ -3,6 +3,10 @@ import {View, Text} from 'react-native';
 
 export default class HomeScreen extends Component {
 
+    static navigationOptions = ({navigation}) => ({
+        title: 'HOME'
+    });
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -11,11 +15,3 @@ export default class HomeScreen extends Component {
         );
     }
 }
-
-HomeScreen.navigationOptions = ({navigation}) => {
-    return {
-        title: 'HOME'
-    }
-};
-
-const styles = {};
