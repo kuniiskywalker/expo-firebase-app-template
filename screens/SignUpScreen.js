@@ -8,7 +8,6 @@ export default class SignUpScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={{flex: 1}}>
-                <View style={styles.header}><Text style={styles.headerText}>SignUp</Text></View>
                 <FacebookLoginButton />
                 <EmailAndPasswordSignUpForm />
                 <Button
@@ -21,6 +20,12 @@ export default class SignUpScreen extends Component {
         );
     }
 }
+
+SignUpScreen.navigationOptions = ({navigation}) => {
+    return {
+        title: 'SignUp'
+    }
+};
 
 const styles = {
     header: {
