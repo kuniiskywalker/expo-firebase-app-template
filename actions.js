@@ -1,26 +1,5 @@
-import { firebaseApp, firebaseAuth } from './firebase'
+import { firebaseAuth } from './firebase'
 import { signInWithFacebook } from './utils/auth'
- 
-export const changeEmail = (text) => {
-  return {
-    type: 'change_email',
-    payload: text
-  };
-};
- 
-export const changePassword = (text) => {
-  return {
-    type: 'change_password',
-    payload: text
-  };
-};
-
-export const changeDisplayName = (text) => {
-    return {
-        type: 'change_display_name',
-        payload: text
-    };
-};
 
 export const submitSignIn = ({ email, password }) => {
   return (dispatch) => {

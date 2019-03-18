@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
-import {changeEmail, changePassword, submitSignIn} from '../actions';
+import {submitSignIn} from '../actions';
 
 class EmailAndPasswordSignInForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            email: '',
+            password: '',
+        };
+    }
     onButtonPress() {
-        const {email, password} = this.props;
+        const {email, password} = this.state;
         this.props.submitSignIn({email, password});
     }
 
@@ -30,8 +37,8 @@ class EmailAndPasswordSignInForm extends Component {
                     <TextInput
                         placeholder="user@gmail.com"
                         autoCorrect={false}
-                        value={this.props.email}
-                        onChangeText={email => this.props.changeEmail(email)}
+                        value={this.state.email}
+                        onChangeText={email => this.setState({email})}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -40,8 +47,8 @@ class EmailAndPasswordSignInForm extends Component {
                         secureTextEntry
                         placeholder="パスワード"
                         autoCorrect={false}
-                        value={this.props.password}
-                        onChangeText={password => this.props.changePassword(password)}
+                        value={this.state.password}
+                        onChangeText={password => this.setState({password})}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -91,11 +98,11 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email,
-        password: state.auth.password,
+        // email: state.auth.email,
+        // password: state.auth.password,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }
 }
 
-export default connect(mapStateToProps, {changeEmail, changePassword, submitSignIn})(EmailAndPasswordSignInForm);
+export default connect(mapStateToProps, {submitSignIn})(EmailAndPasswordSignInForm);

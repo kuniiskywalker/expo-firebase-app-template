@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
-import {changeEmail, changePassword, changeDisplayName, submitSignUp} from '../actions';
+import {submitSignUp} from '../actions';
 
 class EmailAndPasswordSignUpForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            email: '',
+            password: '',
+            displayName: '',
+        };
+    }
+
     onButtonPress() {
-        const {email, password, displayName} = this.props;
+        const {email, password, displayName} = this.state;
         this.props.submitSignUp({email, password, displayName});
     }
 
@@ -30,8 +39,8 @@ class EmailAndPasswordSignUpForm extends Component {
                     <TextInput
                         placeholder="user@gmail.com"
                         autoCorrect={false}
-                        value={this.props.email}
-                        onChangeText={email => this.props.changeEmail(email)}
+                        value={this.state.email}
+                        onChangeText={email => this.setState({email})}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -40,8 +49,8 @@ class EmailAndPasswordSignUpForm extends Component {
                         secureTextEntry
                         placeholder="パスワード"
                         autoCorrect={false}
-                        value={this.props.password}
-                        onChangeText={password => this.props.changePassword(password)}
+                        value={this.state.password}
+                        onChangeText={password => this.setState({password})}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -49,8 +58,8 @@ class EmailAndPasswordSignUpForm extends Component {
                     <TextInput
                         placeholder="表示名"
                         autoCorrect={false}
-                        value={this.props.displayName}
-                        onChangeText={displayName => this.props.changeDisplayName(displayName)}
+                        value={this.state.displayName}
+                        onChangeText={displayName => this.setState({displayName})}
                         style={styles.inputStyle}
                     />
                 </View>
@@ -100,12 +109,12 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email,
-        password: state.auth.password,
-        displayName: state.auth.displayName,
+        // email: state.auth.email,
+        // password: state.auth.password,
+        // displayName: state.auth.displayName,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }
 }
 
-export default connect(mapStateToProps, {changeEmail, changePassword, changeDisplayName, submitSignUp})(EmailAndPasswordSignUpForm);
+export default connect(mapStateToProps, {submitSignUp})(EmailAndPasswordSignUpForm);
