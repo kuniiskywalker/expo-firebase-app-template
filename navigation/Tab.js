@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { createMaterialTopTabNavigator, createBottomTabNavigator } from "react-navigation-tabs";
 import Tab from "../screens/HomeScreen";
 
@@ -49,19 +50,37 @@ export default createBottomTabNavigator({
     TabItem1: {
         screen: Home,
         navigationOptions: {
-            tabBarLabel: "Tab Item"
+            tabBarLabel: "Home",
+            tabBarIcon: ({focused}) => (
+                <Icon
+                    name="home"
+                    size={24}
+                />
+            )
         }
     },
     TabItem2: {
         screen: Home,
         navigationOptions: {
-            tabBarLabel: "Tab Item"
+            tabBarLabel: "Tab Item",
+            tabBarIcon: ({focused}) => (
+                <Icon
+                    name="home"
+                    size={24}
+                />
+            )
         }
     },
     TabItem3: {
         screen: Home,
         navigationOptions: {
-            tabBarLabel: "Tab Item"
+            tabBarLabel: "Tab Item",
+            tabBarIcon: ({focused}) => (
+                <Icon
+                    name="home"
+                    size={24}
+                />
+            )
         }
     }
 });
