@@ -9,6 +9,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import Drawer from './Drawer';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import MyPageScreen from "../screens/MyPageScreen";
 
 const WelcomeStack = createStackNavigator(
     {
@@ -27,8 +28,14 @@ const AppStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 headerLeft: (
                     <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
+                ),
+                headerRight: (
+                    <Icon name="user" size={24} onPress={()=>{navigation.navigate('MyPage')}} style={{paddingRight:20}}/>
                 )
             })
+        },
+        MyPage: {
+            screen: MyPageScreen
         }
     }
 );
