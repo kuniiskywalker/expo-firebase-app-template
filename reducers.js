@@ -1,29 +1,27 @@
 import { combineReducers } from 'redux';
- 
+
+import * as Auth from './constants/Auth';
+
 const INITIAL_STATE = {
-  email: "",
-  password: "",
-  displayName: "",
   loading: false,
   loggedIn: ""
 }
- 
+
 const AuthReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'change_email':
-      return { ...state, email: action.payload }
-    case 'change_password':
-      return { ...state, password: action.payload }
-    case 'change_display_name':
-        return { ...state, displayName: action.payload }
-    case 'signin_start':
+    case Auth.SIGNIN_REQUEST:
+    case Auth.SIGNUP_REQUEST:
+    case Auth.SIGNOUT_REQUEST:
       return { ...state, loading: true }
-    case 'signin_end':
-      return { ...state, loading: false }
-    case 'signin_success':
-      return { ...state, loggedIn: "ログイン中" }
-    case 'signin_fail':
-      return { ...state, loggedIn: ""}
+    case Auth.SIGNIN_SUCCESS:
+    case Auth.SIGNUP_SUCCESS:
+        return { ...state, loading: false, loggedIn: true }
+    case Auth.SIGNOUT_SUCCESS:
+      return { ...state, loading: false, loggedIn: false }
+    case Auth.SIGNIN_ERROR:
+    case Auth.SIGNUP_ERROR:
+    case Auth.SIGNOUT_ERROR:
+      return { ...state, loading: false, loggedIn: false }
     default:
       return state;
   }

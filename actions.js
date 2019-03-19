@@ -1,25 +1,38 @@
 import { firebaseAuth } from './firebase'
 import { signInWithFacebook } from './utils/auth'
+import * as Auth from './constants/Auth'
 
 export const submitSignIn = ({ email, password }) => {
-  return (dispatch) => {
-    dispatch({ type: 'login_start' });
+    return (dispatch) => {
+        dispatch({ type: Auth.SIGNIN_REQUEST });
 
-      firebaseAuth.signInWithEmailAndPassword(email, password)
-      .then(user => {
-        dispatch({ type: 'signin_success' });
-        dispatch({ type: 'signin_end' });
-      })
-      .catch(() => {
-        dispatch({ type: 'signin_fail' });
-        dispatch({ type: 'signin_end' });
-      });
-  }
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .then(user => {
+                dispatch({ type: Auth.SIGNIN_SUCCESS });
+            })
+            .catch(() => {
+                dispatch({ type: Auth.SIGNIN_ERROR });
+            });
+    }
+}
+
+export const submitSignOut = () => {
+    return (dispatch) => {
+        dispatch({ type: Auth.SIGNOUT_REQUEST });
+
+        firebaseAuth.signOut()
+            .then(user => {
+                dispatch({ type: Auth.SIGNOUT_SUCCESS });
+            })
+            .catch(() => {
+                dispatch({ type: Auth.SIGNOUT_ERROR });
+            });
+    }
 }
 
 export const submitSignUp = ({ email, password, displayName }) => {
     return (dispatch) => {
-        dispatch({ type: 'signup_start' });
+        dispatch({ type: Auth.SIGNUP_REQUEST });
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .then(function (result) {
@@ -28,32 +41,29 @@ export const submitSignUp = ({ email, password, displayName }) => {
                 })
             })
             .then(function () {
-                dispatch({ type: 'signup_success' });
-                dispatch({ type: 'signup_end' });
+                dispatch({ type: Auth.SIGNUP_SUCCESS });
+                dispatch(NavigationActions.navigate({ routeName: 'Home' }));
             })
             .catch(function(error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                // var errorCode = error.code;
+                // var errorMessage = error.message;
                 // ...
-                dispatch({ type: 'signup_fail' });
-                dispatch({ type: 'signup_end' });
+                dispatch({ type: Auth.SIGNUP_ERROR });
             });
     }
 }
 
 export const submitFacebookLogin = () => {
     return (dispatch) => {
-        dispatch({ type: 'signin_start' });
+        dispatch({ type: Auth.SIGNIN_REQUEST });
 
         signInWithFacebook()
             .then(user => {
-                dispatch({ type: 'signin_success' });
-                dispatch({ type: 'signin_end' });
+                dispatch({ type: Auth.SIGNIN_SUCCESS });
             })
             .catch(e => {
-                dispatch({ type: 'signin_fail' });
-                dispatch({ type: 'signin_end' });
+                dispatch({ type: Auth.SIGNIN_ERROR });
             });
     }
 }
