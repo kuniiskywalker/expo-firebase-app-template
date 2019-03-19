@@ -2,9 +2,11 @@ import React from 'react';
 
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
-import HomeScreen from '../screens/HomeScreen';
+import Drawer from './Drawer';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 
@@ -18,7 +20,18 @@ const WelcomeStack = createStackNavigator(
     },
 );
 
-const AppStack = createStackNavigator({ Home: HomeScreen });
+const AppStack = createStackNavigator(
+    {
+        Main: {
+            screen: Drawer,
+            navigationOptions: ({ navigation }) => ({
+                headerLeft: (
+                    <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
+                )
+            })
+        }
+    }
+);
 const AuthStack = createStackNavigator({ SignIn: SignInScreen, SignUp: SignUpScreen });
 
 export default createAppContainer(createSwitchNavigator(

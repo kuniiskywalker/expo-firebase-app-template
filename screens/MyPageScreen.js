@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class HomeScreen extends Component {
+export default class MyPageScreen extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <Text>HOME</Text>
+                <Text>MyPage</Text>
             </View>
         );
     }
