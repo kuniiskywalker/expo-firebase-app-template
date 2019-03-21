@@ -66,3 +66,9 @@ export const submitFacebookLogin = () => {
             });
     }
 }
+
+export const changeAuthedState = user => {
+    return (dispatch) => {
+        dispatch({ type: Auth.SIGNIN_SUCCESS, user });
+    }
+}
