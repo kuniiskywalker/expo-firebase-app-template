@@ -5,7 +5,7 @@ import * as Auth from './constants/Auth';
 const INITIAL_STATE = {
     email: '',
     displayName: '',
-    profileURL: '',
+    photoURL: '',
     loading: false,
     loggedIn: ""
 }
@@ -22,7 +22,7 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
             ...state,
             email: action.user.email,
             displayName: action.user.displayName,
-            profileURL: action.user.profileURL,
+            photoURL: action.user.photoURL,
             loading: false,
             loggedIn: true
         }
@@ -32,6 +32,13 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     case Auth.SIGNUP_ERROR:
     case Auth.SIGNOUT_ERROR:
       return { ...state, loading: false, loggedIn: false }
+
+    case Auth.UPDATE_PROFILE_SUCCESS:
+        return {
+            ...state,
+            photoURL: action.photoURL,
+        }
+
     default:
       return state;
   }

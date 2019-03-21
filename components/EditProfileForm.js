@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Text, TextInput, ActivityIndicator, Image } from 'react-native';
-import { submitSignIn } from '../actions';
+import { submitSignIn, updateProfileImage } from '../actions';
 import ImagePickerButton from '../components/ImagePickerButton';
 
 class EditProfileForm extends Component {
@@ -12,7 +12,7 @@ class EditProfileForm extends Component {
             email: '',
             password: '',
             displayName: '',
-            profileURL: require('../assets/images/user.png'),
+            // photoURL: '',
         };
     }
 
@@ -20,13 +20,17 @@ class EditProfileForm extends Component {
         this.setState({
             email: this.props.email,
             displayName: this.props.displayName,
-            profileURL: this.props.profileURL ? {uri: this.props.profileURL}: this.state.profileURL,
+            // photoURL: this.props.photoURL,
         });
     }
 
     onButtonPress() {
-        const {email, password} = this.state;
+        const { email, password } = this.state;
         this.props.submitSignIn({email, password});
+    }
+
+    onChangeProfileImage(photoURL) {
+        this.props.updateProfileImage(photoURL);
     }
 
     loadSpinner() {
@@ -49,11 +53,11 @@ class EditProfileForm extends Component {
                 <View style={styles.wrap}>
                     <ImagePickerButton
                         onSelect={image => {
-                            this.setState({profileURL: {uri: image}})
+                            this.onChangeProfileImage(image)
                         }}
                     />
 
-                    {this.state.profileURL? <Image source={this.state.profileURL} style={{ width: 200, height: 200 }} />: null}
+                    {this.props.photoURL? <Image source={{uri: this.props.photoURL}} style={{ width: 200, height: 200 }} />: <Image source={require('../assets/images/user.png')} style={{ width: 200, height: 200 }} />}
 
                 </View>
 
@@ -134,11 +138,11 @@ const mapStateToProps = state => {
     return {
         email: state.auth.email,
         displayName: state.auth.displayName,
-        profileURL: state.auth.profileURL,
+        photoURL: state.auth.photoURL,
         // password: state.auth.password,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }
 }
 
-export default connect(mapStateToProps, {submitSignIn})(EditProfileForm);
+export default connect(mapStateToProps, {submitSignIn, updateProfileImage})(EditProfileForm);

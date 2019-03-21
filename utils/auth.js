@@ -21,7 +21,7 @@ export async function signInWithFacebook() {
             return Promise.resolve({
                 email: facebookProfileData.user.email,
                 displayName: facebookProfileData.user.displayName,
-                profileURL: facebookProfileData.user.photoURL,
+                photoURL: facebookProfileData.user.photoURL,
             });
         }
         case 'cancel': {

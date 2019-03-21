@@ -19,7 +19,7 @@ class AuthLoadingScreen extends React.Component {
                 props.changeAuthedState({
                     email: user.email,
                     displayName: user.displayName,
-                    profileURL: user.photoURL,
+                    photoURL: user.photoURL,
                 });
             }
         });

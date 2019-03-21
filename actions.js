@@ -1,4 +1,4 @@
-import { firebaseAuth } from './firebase'
+import { firebaseAuth, firebaseStorage } from './firebase'
 import { signInWithFacebook } from './utils/auth'
 import * as Auth from './constants/Auth'
 
@@ -70,5 +70,37 @@ export const submitFacebookLogin = () => {
 export const changeAuthedState = user => {
     return (dispatch) => {
         dispatch({ type: Auth.SIGNIN_SUCCESS, user });
+    }
+}
+
+export const updateProfileImage = uri => {
+    return async function(dispatch) {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function(e) {
+                console.log(e);
+                reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+        });
+
+        const user = firebaseAuth.currentUser;
+
+        let storageRef = firebaseStorage.ref().child(`profile/${user.uid}.jpg`);
+
+        const snapshot = await storageRef.put(blob, {contentType: 'image/jpg'});
+        blob.close();
+
+        const photoURL = await snapshot.ref.getDownloadURL();
+
+        await user.updateProfile({
+            photoURL: photoURL,
+        })
+        dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_SUCCESS, photoURL });
     }
 }
