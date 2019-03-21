@@ -75,32 +75,38 @@ export const changeAuthedState = user => {
 
 export const updateProfileImage = uri => {
     return async function(dispatch) {
-        const blob = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-                resolve(xhr.response);
-            };
-            xhr.onerror = function(e) {
-                console.log(e);
-                reject(new TypeError('Network request failed'));
-            };
-            xhr.responseType = 'blob';
-            xhr.open('GET', uri, true);
-            xhr.send(null);
-        });
+        dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_REQUEST });
 
-        const user = firebaseAuth.currentUser;
+        try {
+            const blob = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function() {
+                    resolve(xhr.response);
+                };
+                xhr.onerror = function(e) {
+                    console.log(e);
+                    reject(new TypeError('Network request failed'));
+                };
+                xhr.responseType = 'blob';
+                xhr.open('GET', uri, true);
+                xhr.send(null);
+            });
 
-        let storageRef = firebaseStorage.ref().child(`profile/${user.uid}.jpg`);
+            const user = firebaseAuth.currentUser;
 
-        const snapshot = await storageRef.put(blob, {contentType: 'image/jpg'});
-        blob.close();
+            let storageRef = firebaseStorage.ref().child(`profile/${user.uid}.jpg`);
 
-        const photoURL = await snapshot.ref.getDownloadURL();
+            const snapshot = await storageRef.put(blob, {contentType: 'image/jpg'});
+            blob.close();
 
-        await user.updateProfile({
-            photoURL: photoURL,
-        })
-        dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_SUCCESS, photoURL });
+            const photoURL = await snapshot.ref.getDownloadURL();
+
+            await user.updateProfile({
+                photoURL: photoURL,
+            });
+            dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_SUCCESS, photoURL });
+        } catch (err) {
+            dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_ERROR});
+        }
     }
 }
