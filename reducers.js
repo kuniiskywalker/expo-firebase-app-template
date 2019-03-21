@@ -3,8 +3,11 @@ import { combineReducers } from 'redux';
 import * as Auth from './constants/Auth';
 
 const INITIAL_STATE = {
-  loading: false,
-  loggedIn: ""
+    email: '',
+    displayName: '',
+    profileURL: '',
+    loading: false,
+    loggedIn: ""
 }
 
 const AuthReducer = (state = INITIAL_STATE, action) => {
@@ -15,7 +18,14 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true }
     case Auth.SIGNIN_SUCCESS:
     case Auth.SIGNUP_SUCCESS:
-        return { ...state, loading: false, loggedIn: true }
+        return {
+            ...state,
+            email: action.user.email,
+            displayName: action.user.displayName,
+            profileURL: action.user.profileURL,
+            loading: false,
+            loggedIn: true
+        }
     case Auth.SIGNOUT_SUCCESS:
       return { ...state, loading: false, loggedIn: false }
     case Auth.SIGNIN_ERROR:

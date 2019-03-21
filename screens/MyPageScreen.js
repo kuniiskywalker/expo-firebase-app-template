@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Button } from 'react-native';
 import SignOutButton from '../components/SignOutButton';
 import SignInButton from '../components/SignInButton';
 
 class MyPageScreen extends Component {
+
+    static navigationOptions = ({navigation}) => ({
+        title: 'MyPage'
+    });
+
     render() {
         const {navigate} = this.props.navigation;
         return (
             <View style={{flex: 1}}>
-                <Text>MyPage</Text>
-                {this.props.loggedIn? <SignOutButton />: <SignInButton onPress={() => {
-                    navigate('SignIn');
-                }} />}
+                {(() => {
+                    if (this.props.loggedIn === true) {
+                        return (
+                            <View>
+                                <Button
+                                    title={"Edit Profile"}
+                                    onPress={() => {
+                                        navigate("EditProfile");
+                                    }}
+                                />
+                                <SignOutButton />
+                            </View>
+                        )
+                    } else {
+                        return (
+                            <View>
+                                <SignInButton onPress={() => {
+                                    navigate('SignIn');
+                                }} />
+                            </View>
+                        )
+                    }
+                    return false;
+                })()}
             </View>
         );
     }

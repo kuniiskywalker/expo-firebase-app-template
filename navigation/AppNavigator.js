@@ -10,6 +10,7 @@ import Drawer from './Drawer';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import MyPageScreen from "../screens/MyPageScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
 
 const WelcomeStack = createStackNavigator(
     {
@@ -36,6 +37,9 @@ const AppStack = createStackNavigator(
         },
         MyPage: {
             screen: MyPageScreen
+        },
+        EditProfile: {
+            screen: EditProfileScreen
         },
         SignIn: SignInScreen,
         SignUp: SignUpScreen

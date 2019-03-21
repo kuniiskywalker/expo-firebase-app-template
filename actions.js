@@ -8,7 +8,7 @@ export const submitSignIn = ({ email, password }) => {
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .then(user => {
-                dispatch({ type: Auth.SIGNIN_SUCCESS });
+                dispatch({ type: Auth.SIGNIN_SUCCESS, user });
             })
             .catch(() => {
                 dispatch({ type: Auth.SIGNIN_ERROR });
@@ -35,16 +35,15 @@ export const submitSignUp = ({ email, password, displayName }) => {
         dispatch({ type: Auth.SIGNUP_REQUEST });
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .then(function (result) {
+            .then(result => {
                 return result.user.updateProfile({
                     displayName: displayName,
                 })
             })
-            .then(function () {
+            .then(user => {
                 dispatch({ type: Auth.SIGNUP_SUCCESS });
-                dispatch(NavigationActions.navigate({ routeName: 'Home' }));
             })
-            .catch(function(error) {
+            .catch(error => {
                 // Handle Errors here.
                 // var errorCode = error.code;
                 // var errorMessage = error.message;
@@ -60,7 +59,7 @@ export const submitFacebookLogin = () => {
 
         signInWithFacebook()
             .then(user => {
-                dispatch({ type: Auth.SIGNIN_SUCCESS });
+                dispatch({ type: Auth.SIGNIN_SUCCESS, user });
             })
             .catch(e => {
                 dispatch({ type: Auth.SIGNIN_ERROR });

@@ -3,8 +3,7 @@ import { firebaseAuth } from '../firebase'
 
 export async function signInWithFacebook() {
     const appId = Expo.Constants.manifest.extra.facebook.appId;
-    const permissions = ['public_profile', 'email'];  // Permissions required, consult Facebook docs
-
+    const permissions = ['public_profile', 'email'];
     const {
         type,
         token,
@@ -15,11 +14,15 @@ export async function signInWithFacebook() {
 
     switch (type) {
         case 'success': {
-            await firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);  // Set persistent auth state
+            await firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
-            const facebookProfileData = await firebaseAuth.signInAndRetrieveDataWithCredential(credential);  // Sign in with Facebook credential
+            const facebookProfileData = await firebaseAuth.signInAndRetrieveDataWithCredential(credential);
 
-            return Promise.resolve({type: 'success'});
+            return Promise.resolve({
+                email: facebookProfileData.user.email,
+                displayName: facebookProfileData.user.displayName,
+                profileURL: facebookProfileData.user.photoURL,
+            });
         }
         case 'cancel': {
             return Promise.reject({type: 'cancel'});
