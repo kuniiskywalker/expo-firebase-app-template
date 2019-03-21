@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, Text, TextInput, ActivityIndicator, Image } from 'react-native';
-import { submitSignIn, updateProfileImage } from '../actions';
-import ImagePickerButton from '../components/ImagePickerButton';
+import { View, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { submitSignIn } from '../actions';
 
 class EditProfileForm extends Component {
 
@@ -29,10 +28,6 @@ class EditProfileForm extends Component {
         this.props.submitSignIn({email, password});
     }
 
-    onChangeProfileImage(photoURL) {
-        this.props.updateProfileImage(photoURL);
-    }
-
     loadSpinner() {
         if (this.props.loading) {
             return <ActivityIndicator size="small"/>
@@ -50,16 +45,6 @@ class EditProfileForm extends Component {
     render() {
         return (
             <View>
-                <View style={styles.wrap}>
-                    <ImagePickerButton
-                        onSelect={image => {
-                            this.onChangeProfileImage(image)
-                        }}
-                    />
-
-                    {this.props.photoURL? <Image source={{uri: this.props.photoURL}} style={{ width: 200, height: 200 }} />: <Image source={require('../assets/images/user.png')} style={{ width: 200, height: 200 }} />}
-
-                </View>
 
                 <View style={styles.wrap}>
                     <TextInput
@@ -138,11 +123,11 @@ const mapStateToProps = state => {
     return {
         email: state.auth.email,
         displayName: state.auth.displayName,
-        photoURL: state.auth.photoURL,
+        // photoURL: state.auth.photoURL,
         // password: state.auth.password,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }
 }
 
-export default connect(mapStateToProps, {submitSignIn, updateProfileImage})(EditProfileForm);
+export default connect(mapStateToProps, {submitSignIn})(EditProfileForm);

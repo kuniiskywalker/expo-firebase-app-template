@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, View } from 'react-native';
+import { TouchableOpacity, View, Image } from 'react-native';
 import { Camera, Permissions, ImagePicker } from 'expo';
 
+import ActionSheet from 'react-native-actionsheet'
+
 export default class ImagePickerButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            image: null,
-            // hasCameraPermission: null, // カメラ機能の許可
-            // type: Camera.Constants.Type.back, // 背面カメラを利用
-        };
+
+    constructor() {
+        super();
+        this._pickImage = this._pickImage.bind(this);
     }
 
+    showActionSheet = () => {
+        this.ActionSheet.show()
+    }
     render() {
-        let { image } = this.state;
-
         return (
             <View>
-                <Button
-                    title="Pick an image from camera roll"
-                    onPress={this._pickImage}
-                />
-                <Button
-                    title="Enjoy Camera!"
-                    onPress={this._camera}
+                <TouchableOpacity
+                    onPress={this.showActionSheet}
+                >
+                    {this.props.photoURL? <Image source={{uri: this.props.photoURL}} style={{ width: 200, height: 200 }} />: <Image source={require('../assets/images/user.png')} style={{ width: 200, height: 200 }} />}
+                </TouchableOpacity>
+
+                <ActionSheet
+                    ref={o => this.ActionSheet = o}
+                    title={'Which one do you like ?'}
+                    options={['Camera', 'Album', 'cancel']}
+                    cancelButtonIndex={2}
+                    // destructiveButtonIndex={1}
+                    onPress={this._onSelect}
                 />
             </View>
-        );
+        )
     }
+
+    _onSelect = async index => {
+        switch (index) {
+            case 0:
+                this._camera();
+                break;
+            case 1:
+                this._pickImage();
+                break;
+        }
+    };
+
     _camera = async () => {
 
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -58,7 +76,7 @@ export default class ImagePickerButton extends React.Component {
         }
     };
 }
-
 ImagePickerButton.propTypes = {
-    onSelect: PropTypes.func.isRequired,
+    photoURL: PropTypes.string.isRequired,
+    onSelect: PropTypes.func.isRequired
 };
