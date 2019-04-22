@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     displayName: '',
     photoURL: '',
     loading: false,
-    loggedIn: ""
+    loggedIn: false
 }
 
 const AuthReducer = (state = INITIAL_STATE, action) => {
@@ -27,7 +27,7 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
               loggedIn: true
           }
       case Auth.SIGNOUT_SUCCESS:
-          return { ...state, loading: false, loggedIn: false }
+          return INITIAL_STATE
       case Auth.SIGNIN_ERROR:
       case Auth.SIGNUP_ERROR:
       case Auth.SIGNOUT_ERROR:
