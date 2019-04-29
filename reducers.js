@@ -41,8 +41,6 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
               photoURL: action.photoURL,
               loading: false
           }
-      case Auth.SIGNOUT_ERROR:
-          return { ...state, loading: false }
 
       default:
           return state;

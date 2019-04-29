@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { View, Button } from 'react-native';
-import SignOutButton from '../components/SignOutButton';
-import SignInButton from '../components/SignInButton';
+import SignOutButton from '../containers/SignOutButton';
 
 class MyPageScreen extends Component {
 
@@ -30,9 +29,12 @@ class MyPageScreen extends Component {
                     } else {
                         return (
                             <View>
-                                <SignInButton onPress={() => {
-                                    navigate('SignIn');
-                                }} />
+                                <Button
+                                    onPress={() => {
+                                        navigate('SignIn');
+                                    }}
+                                    title="Sign In"
+                                />
                             </View>
                         )
                     }

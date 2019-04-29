@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import ImagePickerButton from '../components/ImagePickerButton';
-import EditProfileForm from '../components/EditProfileForm';
+import EditProfileForm from '../containers/EditProfileForm';
 import { updateProfileImage } from '../actions';
 
 class EditProfileScreen extends Component {

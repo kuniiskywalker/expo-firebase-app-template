@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
-import EmailAndPasswordSignUpForm from '../components/EmailAndPasswordSignUpForm';
-import FacebookLoginButton from '../components/FacebookLoginButton';
+import EmailAndPasswordSignUpForm from '../containers/EmailAndPasswordSignUpForm';
+import FacebookLoginButton from '../containers/FacebookLoginButton';
 
 export default class SignUpScreen extends Component {
 
