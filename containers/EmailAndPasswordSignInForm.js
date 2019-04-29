@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
 import {submitSignIn} from '../actions';
+import SpringButton from '../components/SpringButton';
 
 class EmailAndPasswordSignInForm extends Component {
     constructor(props) {
@@ -22,11 +23,13 @@ class EmailAndPasswordSignInForm extends Component {
         }
 
         return (
-            <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle}>
+            <SpringButton
+                onPress={this.onButtonPress.bind(this)}
+                style={styles.buttonStyle}>
                 <Text style={styles.textStyle}>
                     ログイン
                 </Text>
-            </TouchableOpacity>
+            </SpringButton>
         )
     }
 

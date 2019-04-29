@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator } from 'react-native';
+import SpringButton from '../components/SpringButton';
 import { submitSignIn } from '../actions';
 
 class EditProfileForm extends Component {
@@ -34,11 +35,14 @@ class EditProfileForm extends Component {
         }
 
         return (
-            <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle}>
+            <SpringButton
+                onPress={this.onButtonPress.bind(this)}
+                style={styles.buttonStyle}
+            >
                 <Text style={styles.textStyle}>
                     更新
                 </Text>
-            </TouchableOpacity>
+            </SpringButton>
         )
     }
 
