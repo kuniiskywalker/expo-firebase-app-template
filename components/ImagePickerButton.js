@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Camera, Permissions, ImagePicker } from 'expo';
-
-import ActionSheet from 'react-native-actionsheet'
+import SpringButton from '../components/SpringButton';
+import ActionSheet from 'react-native-actionsheet';
 
 export default class ImagePickerButton extends React.Component {
 
@@ -18,11 +18,11 @@ export default class ImagePickerButton extends React.Component {
     render() {
         return (
             <View>
-                <TouchableOpacity
+                <SpringButton
                     onPress={this.showActionSheet}
                 >
                     {this.props.photoURL? <Image source={{uri: this.props.photoURL}} style={{ width: 200, height: 200 }} />: <Image source={require('../assets/images/user.png')} style={{ width: 200, height: 200 }} />}
-                </TouchableOpacity>
+                </SpringButton>
 
                 <ActionSheet
                     ref={o => this.ActionSheet = o}
