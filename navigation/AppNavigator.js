@@ -11,7 +11,7 @@ import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import MyPageScreen from "../screens/MyPageScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
-
+import SpringButton from '../components/SpringButton';
 import AvatorIcon from "../containers/AvatorIcon";
 
 const WelcomeStack = createStackNavigator(
@@ -34,13 +34,13 @@ const AppStack = createStackNavigator(
                         <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
                     ),
                     headerRight: (
-                        <TouchableOpacity
+                        <SpringButton
                             onPress={() => {
                                 navigation.navigate("MyPage")
                             }}
                         >
                             <AvatorIcon />
-                        </TouchableOpacity>
+                        </SpringButton>
                     )
                 };
             }
