@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import EmailAndPasswordSignInForm from '../containers/EmailAndPasswordSignInForm';
 import FacebookLoginButton from '../containers/FacebookLoginButton';
 
