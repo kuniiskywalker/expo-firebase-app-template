@@ -29,6 +29,7 @@ const AppStack = createStackNavigator(
             screen: Drawer,
             navigationOptions: ({ navigation }) => {
                 return {
+                    title: 'sample app',
                     headerLeft: (
                         <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
                     ),
