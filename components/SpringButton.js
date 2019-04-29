@@ -6,7 +6,7 @@ class SpringButton extends React.Component {
     onPressIn = () => {
         Animated.timing(this.scale, {
             toValue: 0.95,
-            duration: 80,
+            duration: 200,
             useNativeDriver: true,
         }).start()
     }
@@ -29,11 +29,15 @@ class SpringButton extends React.Component {
                 onPress={this.props.onPress}
                 onPressIn={this.onPressIn}
                 onPressOut={this.onPressOut}
+                style={this.props.styles}
             >
                 <Animated.View
-                    style={{
-                        transform: [{ scale: this.scale }],
-                    }}
+                    style={[
+                        this.props.style,
+                        {
+                            transform: [{ scale: this.scale }],
+                        },
+                    ]}
                 >
                     {this.props.children}
                 </Animated.View>
@@ -42,6 +46,7 @@ class SpringButton extends React.Component {
     }
 }
 SpringButton.propTypes = {
+    style: PropTypes.object,
     onPress: PropTypes.func.isRequired
 };
 
