@@ -1,18 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import SpringButton from '../components/SpringButton';
 import { submitSignIn } from '../actions';
 
-class EditProfileForm extends Component {
+interface Props {
+    email: string;
+    password: string;
+    displayName: string;
+    loading: boolean;
+    loggedIn: boolean;
+    submitSignIn: (params: {
+        email: string;
+        password: string;
+    }) => void;
+}
 
-    constructor(props) {
+interface State {
+    email: string;
+    password: string;
+    displayName: string;
+}
+
+class EditProfileForm extends React.Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state={
             email: '',
             password: '',
             displayName: '',
-            // photoURL: '',
         };
     }
 
@@ -20,7 +37,6 @@ class EditProfileForm extends Component {
         this.setState({
             email: this.props.email,
             displayName: this.props.displayName,
-            // photoURL: this.props.photoURL,
         });
     }
 
@@ -97,10 +113,10 @@ const styles = {
         padding: 10
     },
     textStyle: {
-        alignSelf: 'center',
+        // alignSelf: 'center',
         color: '#007aff',
         fontSize: 16,
-        fontWeight: '600',
+        // fontWeight: 600,
         paddingBottom: 10,
         paddingTop: 10
     },
@@ -123,12 +139,10 @@ const styles = {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         email: state.auth.email,
         displayName: state.auth.displayName,
-        // photoURL: state.auth.photoURL,
-        // password: state.auth.password,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }

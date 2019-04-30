@@ -2,12 +2,12 @@ import { firebaseAuth, firebaseStorage } from './firebase'
 import { signInWithFacebook } from './utils/auth'
 import * as Auth from './constants/Auth'
 
-export const submitSignIn = ({ email, password }) => {
-    return (dispatch) => {
+export const submitSignIn = (params: {email: string, password: string}) => {
+    return (dispatch: any) => {
         dispatch({ type: Auth.SIGNIN_REQUEST });
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .then(user => {
+        firebaseAuth.signInWithEmailAndPassword(params.email, params.password)
+            .then((user: any) => {
                 dispatch({ type: Auth.SIGNIN_SUCCESS, user });
             })
             .catch(() => {
@@ -17,11 +17,11 @@ export const submitSignIn = ({ email, password }) => {
 }
 
 export const submitSignOut = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         dispatch({ type: Auth.SIGNOUT_REQUEST });
 
         firebaseAuth.signOut()
-            .then(user => {
+            .then(() => {
                 dispatch({ type: Auth.SIGNOUT_SUCCESS });
             })
             .catch(() => {
@@ -30,20 +30,20 @@ export const submitSignOut = () => {
     }
 }
 
-export const submitSignUp = ({ email, password, displayName }) => {
-    return (dispatch) => {
+export const submitSignUp = (params: {email: string, password: string, displayName: string}) => {
+    return (dispatch: any) => {
         dispatch({ type: Auth.SIGNUP_REQUEST });
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .then(result => {
+        firebaseAuth.createUserWithEmailAndPassword(params.email, params.password)
+            .then((result: any) => {
                 return result.user.updateProfile({
-                    displayName: displayName,
+                    displayName: params.displayName,
                 })
             })
-            .then(user => {
+            .then(() => {
                 dispatch({ type: Auth.SIGNUP_SUCCESS });
             })
-            .catch(error => {
+            .catch(() => {
                 // Handle Errors here.
                 // var errorCode = error.code;
                 // var errorMessage = error.message;
@@ -54,31 +54,31 @@ export const submitSignUp = ({ email, password, displayName }) => {
 }
 
 export const submitFacebookLogin = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         dispatch({ type: Auth.SIGNIN_REQUEST });
 
         signInWithFacebook()
             .then(user => {
                 dispatch({ type: Auth.SIGNIN_SUCCESS, user });
             })
-            .catch(e => {
+            .catch(() => {
                 dispatch({ type: Auth.SIGNIN_ERROR });
             });
     }
 }
 
-export const changeAuthedState = user => {
-    return (dispatch) => {
+export const changeAuthedState = (user: any) => {
+    return (dispatch: any) => {
         dispatch({ type: Auth.SIGNIN_SUCCESS, user });
     }
 }
 
-export const updateProfileImage = uri => {
-    return async function(dispatch) {
+export const updateProfileImage = (uri: string) => {
+    return async (dispatch: any) => {
         dispatch({ type: Auth.UPDATE_PROFILE_IMAGE_REQUEST });
 
         try {
-            const blob = await new Promise((resolve, reject) => {
+            const blob = await new Promise((resolve: (value: string) => void, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.onload = function() {
                     resolve(xhr.response);
@@ -97,7 +97,7 @@ export const updateProfileImage = uri => {
             let storageRef = firebaseStorage.ref().child(`profile/${user.uid}.jpg`);
 
             const snapshot = await storageRef.put(blob, {contentType: 'image/jpg'});
-            blob.close();
+            // blob.close();
 
             const photoURL = await snapshot.ref.getDownloadURL();
 

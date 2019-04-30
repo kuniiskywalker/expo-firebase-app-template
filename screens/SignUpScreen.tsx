@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import React from 'react';
+import { View, Button } from 'react-native';
 import EmailAndPasswordSignUpForm from '../containers/EmailAndPasswordSignUpForm';
 import FacebookLoginButton from '../containers/FacebookLoginButton';
+import { NavigationScreenProp } from "react-navigation";
 
-export default class SignUpScreen extends Component {
+interface Props {
+    navigation: NavigationScreenProp<any, any>;
+}
 
-    static navigationOptions = ({navigation}) => ({
+export default class SignUpScreen extends React.Component<Props> {
+
+    static navigationOptions = () => ({
         title: 'SignUp'
     });
 

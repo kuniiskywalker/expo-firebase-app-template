@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
@@ -18,7 +18,7 @@ const store = createStore(
     )
 );
 
-class App extends Component {
+class App extends React.Component {
     render() {
         return (
             <Provider store={ store }>

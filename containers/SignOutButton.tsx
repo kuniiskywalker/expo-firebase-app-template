@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-native';
 import { submitSignOut } from '../actions';
 
-class SignOutButton extends Component {
+interface Props {
+    submitSignOut: () => void;
+}
+
+class SignOutButton extends React.Component<Props> {
     onButtonPress() {
         this.props.submitSignOut();
     }
@@ -18,7 +22,7 @@ class SignOutButton extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn

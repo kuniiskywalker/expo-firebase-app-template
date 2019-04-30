@@ -1,10 +1,28 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
-import {submitSignUp} from '../actions';
+import React from 'react';
+import { connect } from 'react-redux';
+import { View, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { submitSignUp } from '../actions';
 
-class EmailAndPasswordSignUpForm extends Component {
-    constructor(props) {
+interface Props {
+    email: string;
+    password: string;
+    loading: boolean;
+    loggedIn: boolean;
+    submitSignUp: (params: {
+        email: string;
+        password: string;
+        displayName: string;
+    }) => void;
+}
+
+interface State {
+    email: string;
+    password: string;
+    displayName: string;
+}
+
+class EmailAndPasswordSignUpForm extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state={
             email: '',
@@ -81,15 +99,15 @@ const styles = {
         padding: 10
     },
     textStyle: {
-        alignSelf: 'center',
+        // alignSelf: 'center',
         color: '#007aff',
         fontSize: 16,
-        fontWeight: '600',
+        // fontWeight: '600',
         paddingBottom: 10,
         paddingTop: 10
     },
     buttonStyle: {
-        alignSelf: 'stretch',
+        // alignSelf: 'stretch',
         backgroundColor: '#fff',
         borderRadius: 5,
         borderWidth: 1,
@@ -107,11 +125,8 @@ const styles = {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
-        // email: state.auth.email,
-        // password: state.auth.password,
-        // displayName: state.auth.displayName,
         loading: state.auth.loading,
         loggedIn: state.auth.loggedIn
     }

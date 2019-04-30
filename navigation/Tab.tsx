@@ -1,25 +1,26 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+// @ts-ignore
 import { createMaterialTopTabNavigator, createBottomTabNavigator } from "react-navigation-tabs";
 import Tab from "../screens/HomeScreen";
 
 const Home = createMaterialTopTabNavigator(
     {
         Tab1: {
-            screen: props => <Tab {...props} kind={"Tab1"} />,
-            navigationOptions: ({navigation}) => ({
+            screen: (props: any) => <Tab {...props} kind={"Tab1"} />,
+            navigationOptions: () => ({
                 title: 'tab1',
             }),
         },
         Tab2: {
-            screen: props => <Tab {...props} kind={"Tab2"} />,
-            navigationOptions: ({navigation}) => ({
+            screen: (props: any) => <Tab {...props} kind={"Tab2"} />,
+            navigationOptions: () => ({
                 title: 'tab2',
             }),
         },
         Tab3: {
-            screen: props => <Tab {...props} kind={"Tab3"} />,
-            navigationOptions: ({navigation}) => ({
+            screen: (props: any) => <Tab {...props} kind={"Tab3"} />,
+            navigationOptions: () => ({
                 title: 'Tab3',
             }),
         }
@@ -51,7 +52,7 @@ export default createBottomTabNavigator({
         screen: Home,
         navigationOptions: {
             tabBarLabel: "Home",
-            tabBarIcon: ({focused}) => (
+            tabBarIcon: () => (
                 <Icon
                     name="home"
                     size={24}
@@ -63,7 +64,7 @@ export default createBottomTabNavigator({
         screen: Home,
         navigationOptions: {
             tabBarLabel: "Tab Item",
-            tabBarIcon: ({focused}) => (
+            tabBarIcon: () => (
                 <Icon
                     name="home"
                     size={24}
@@ -75,7 +76,7 @@ export default createBottomTabNavigator({
         screen: Home,
         navigationOptions: {
             tabBarLabel: "Tab Item",
-            tabBarIcon: ({focused}) => (
+            tabBarIcon: () => (
                 <Icon
                     name="home"
                     size={24}

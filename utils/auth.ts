@@ -1,8 +1,12 @@
-import firebase from 'firebase';
+const firebase = require("firebase").default;
 import { firebaseAuth } from '../firebase'
+import * as Expo from 'expo'
 
 export async function signInWithFacebook() {
-    const appId = Expo.Constants.manifest.extra.facebook.appId;
+
+    const manifest = Expo.Constants.manifest;
+
+    const appId = manifest.extra && manifest.extra.facebook ? manifest.extra.facebook.appId : '';
     const permissions = ['public_profile', 'email'];
     const {
         type,

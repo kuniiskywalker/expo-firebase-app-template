@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { NavigationActions } from 'react-navigation';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { NavigationActions, NavigationScreenProp } from 'react-navigation';
 import { ScrollView, Text, View } from 'react-native';
 import { DrawerActions } from 'react-navigation';
 
-class SideMenu extends Component {
-    navigateToScreen = (route) => () => {
+interface Props {
+    navigation: NavigationScreenProp<any, any>;
+}
+
+class SideMenu extends React.Component<Props> {
+    navigateToScreen = (route: string) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -39,9 +42,5 @@ class SideMenu extends Component {
         );
     }
 }
-
-SideMenu.propTypes = {
-    navigation: PropTypes.object
-};
 
 export default SideMenu;

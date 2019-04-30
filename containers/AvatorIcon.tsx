@@ -1,22 +1,24 @@
-import * as React from 'react';
+import React from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const mapStateToProps = (state) => {
+interface Props {
+    photoURL: string;
+}
+
+const mapStateToProps = (state: any) => {
     return {
         photoURL: state.auth.photoURL
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
     return {
     };
 };
 
-
-class Input extends React.Component {
+class Input extends React.Component<Props> {
     render() {
         if (this.props.photoURL) {
             return (
@@ -39,10 +41,6 @@ class Input extends React.Component {
         }
     }
 }
-
-Input.propTypes = {
-    photoURL: PropTypes.string
-};
 
 const AvatorIcon = connect(
     mapStateToProps,

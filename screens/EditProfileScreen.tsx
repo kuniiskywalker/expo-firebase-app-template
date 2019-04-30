@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import ImagePickerButton from '../components/ImagePickerButton';
 import EditProfileForm from '../containers/EditProfileForm';
 import { updateProfileImage } from '../actions';
 
-class EditProfileScreen extends Component {
+interface Props {
+    photoURL: string;
+    updateProfileImage: (photoURL: string) => void;
+}
 
-    static navigationOptions = ({navigation}) => ({
+class EditProfileScreen extends React.Component<Props> {
+
+    static navigationOptions = () => ({
         title: 'EditProfile'
     });
 
-    onChangeProfileImage(photoURL) {
+    onChangeProfileImage(photoURL: string) {
         this.props.updateProfileImage(photoURL);
     }
 
@@ -32,7 +37,7 @@ class EditProfileScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         photoURL: state.auth.photoURL,
     }

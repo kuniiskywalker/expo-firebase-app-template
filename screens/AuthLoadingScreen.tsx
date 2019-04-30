@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import { NavigationScreenProp } from 'react-navigation';
+import { connect } from 'react-redux';
 import {
     ActivityIndicator,
     StatusBar,
@@ -9,12 +10,24 @@ import {
 import { firebaseAuth } from '../firebase';
 import { changeAuthedState } from '../actions';
 
-class AuthLoadingScreen extends React.Component {
+interface User {
+    email: string;
+    displayName: string;
+    photoURL: string;
+}
 
-    constructor(props) {
+interface Props {
+    navigation: NavigationScreenProp<any,any>;
+    photoURL: string;
+    changeAuthedState: (params: User) => void;
+}
+
+class AuthLoadingScreen extends React.Component<Props> {
+
+    constructor(props: Props) {
         super(props);
 
-        firebaseAuth.onAuthStateChanged(user => {
+        firebaseAuth.onAuthStateChanged((user: User) => {
             if (user) {
                 props.changeAuthedState({
                     email: user.email,
@@ -31,13 +44,12 @@ class AuthLoadingScreen extends React.Component {
 
     // Fetch the token from storage then navigate to our appropriate place
     _bootstrapAsync = async () => {
-        const {navigation} = this.props;
         const ShowedWelcome = await AsyncStorage.getItem('ShowedWelcome');
         if (ShowedWelcome !== 'true') {
             await AsyncStorage.setItem('ShowedWelcome', 'true');
-            navigation.navigate('Welcome');
+            this.props.navigation.navigate('Welcome');
         } else {
-            navigation.navigate('Home');
+            this.props.navigation.navigate('Home');
         }
     };
 
@@ -52,7 +64,7 @@ class AuthLoadingScreen extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         loggedIn: state.auth.loggedIn
     }

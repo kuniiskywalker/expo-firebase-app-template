@@ -1,8 +1,12 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { TouchableOpacity, Animated } from 'react-native';
 
-class SpringButton extends React.Component {
+interface Props {
+    style?: object;
+    onPress: () => void;
+}
+
+class SpringButton extends React.Component<Props> {
     onPressIn = () => {
         Animated.timing(this.scale, {
             toValue: 0.95,
@@ -29,7 +33,6 @@ class SpringButton extends React.Component {
                 onPress={this.props.onPress}
                 onPressIn={this.onPressIn}
                 onPressOut={this.onPressOut}
-                style={this.props.styles}
             >
                 <Animated.View
                     style={[
@@ -45,9 +48,5 @@ class SpringButton extends React.Component {
         );
     }
 }
-SpringButton.propTypes = {
-    style: PropTypes.object,
-    onPress: PropTypes.func.isRequired
-};
 
 export default SpringButton;

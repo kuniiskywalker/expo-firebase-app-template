@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { View, Image } from 'react-native';
-import { Camera, Permissions, ImagePicker } from 'expo';
+import { Permissions, ImagePicker } from 'expo';
 import SpringButton from '../components/SpringButton';
-import ActionSheet from 'react-native-actionsheet';
+const ActionSheet = require("react-native-actionsheet").default;
 
-export default class ImagePickerButton extends React.Component {
+interface Props {
+    photoURL: string;
+    onSelect: (uri: string) => void;
+}
 
-    constructor() {
-        super();
+export default class ImagePickerButton extends React.Component<Props> {
+
+    private ActionSheet: any;
+
+    constructor(props: Props) {
+        super(props);
         this._pickImage = this._pickImage.bind(this);
     }
 
@@ -25,7 +31,7 @@ export default class ImagePickerButton extends React.Component {
                 </SpringButton>
 
                 <ActionSheet
-                    ref={o => this.ActionSheet = o}
+                    ref={(o: any) => this.ActionSheet = o}
                     title={'Which one do you like ?'}
                     options={['Camera', 'Album', 'cancel']}
                     cancelButtonIndex={2}
@@ -36,7 +42,7 @@ export default class ImagePickerButton extends React.Component {
         )
     }
 
-    _onSelect = async index => {
+    _onSelect = async (index: number) => {
         switch (index) {
             case 0:
                 this._camera();
@@ -49,20 +55,19 @@ export default class ImagePickerButton extends React.Component {
 
     _camera = async () => {
 
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        let result = await ImagePicker.launchCameraAsync();
-
-        console.log(result)
+        // const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        await Permissions.askAsync(Permissions.CAMERA);
+        const result = await ImagePicker.launchCameraAsync();
 
         if (!result.cancelled) {
             this.props.onSelect(result.uri);
-            // this.setState({ image: result.uri });
         }
 
     };
 
     _pickImage = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        // const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        await Permissions.askAsync(Permissions.CAMERA_ROLL);
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [4, 3],
@@ -72,11 +77,6 @@ export default class ImagePickerButton extends React.Component {
 
         if (!result.cancelled) {
             this.props.onSelect(result.uri);
-            // this.setState({ image: result.uri });
         }
     };
 }
-ImagePickerButton.propTypes = {
-    photoURL: PropTypes.string.isRequired,
-    onSelect: PropTypes.func.isRequired
-};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createAppContainer, NavigationScreenProps } from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -27,7 +27,7 @@ const AppStack = createStackNavigator(
     {
         Main: {
             screen: Drawer,
-            navigationOptions: ({ navigation }) => {
+            navigationOptions: ({ navigation }: NavigationScreenProps) => {
                 return {
                     title: 'sample app',
                     headerLeft: (

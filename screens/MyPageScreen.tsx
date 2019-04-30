@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import { View, Button } from 'react-native';
 import SignOutButton from '../containers/SignOutButton';
+import { NavigationScreenProp } from "react-navigation";
 
-class MyPageScreen extends Component {
+interface Props {
+    navigation: NavigationScreenProp<any, any>;
+    loggedIn: boolean;
+}
 
-    static navigationOptions = ({navigation}) => ({
+class MyPageScreen extends React.Component<Props> {
+
+    static navigationOptions = () => ({
         title: 'MyPage'
     });
 
@@ -45,7 +51,7 @@ class MyPageScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         loggedIn: state.auth.loggedIn
     }

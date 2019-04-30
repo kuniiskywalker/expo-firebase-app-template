@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Button } from 'react-native';
+import { NavigationScreenProp } from "react-navigation";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default class WelcomeScreen extends React.Component {
+interface Props {
+    navigation: NavigationScreenProp<any, any>;
+}
+
+export default class WelcomeScreen extends React.Component<Props> {
     render() {
         const {navigate} = this.props.navigation;
         return (
