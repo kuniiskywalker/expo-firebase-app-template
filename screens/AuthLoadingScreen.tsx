@@ -64,10 +64,10 @@ class AuthLoadingScreen extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        loggedIn: state.auth.loggedIn
-    }
-}
+// const mapStateToProps = (state: any) => {
+//     return {
+//         // loggedIn: state.auth.loggedIn
+//     }
+// }
 
-export default connect(mapStateToProps, { changeAuthedState })(AuthLoadingScreen);
+export default connect(null, { changeAuthedState })(AuthLoadingScreen);
