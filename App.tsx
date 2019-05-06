@@ -1,24 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import reducers from './reducers';
-
 import AppNavigator from './navigation/AppNavigator';
+import createStore from './createStore';
 
-const logger = createLogger();
+const store = createStore({});
 
-const store = createStore(
-    reducers,
-    {},
-    applyMiddleware(
-        logger,
-        ReduxThunk
-    )
-);
-
-class App extends React.Component {
+export default class App extends React.Component {
     render() {
         return (
             <Provider store={ store }>
@@ -27,5 +14,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

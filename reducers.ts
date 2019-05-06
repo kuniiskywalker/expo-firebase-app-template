@@ -20,9 +20,9 @@ const AuthReducer = (state = INITIAL_STATE, action: any) => {
         case Auth.SIGNUP_SUCCESS:
             return {
                 ...state,
-                email: action.user.email,
-                displayName: action.user.displayName,
-                photoURL: action.user.photoURL,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                photoURL: action.payload.photoURL,
                 loading: false,
                 loggedIn: true
             }
@@ -38,7 +38,7 @@ const AuthReducer = (state = INITIAL_STATE, action: any) => {
         case Auth.UPDATE_PROFILE_IMAGE_SUCCESS:
             return {
                 ...state,
-                photoURL: action.photoURL,
+                photoURL: action.payload.photoURL,
                 loading: false
             }
         case Auth.UPDATE_PROFILE_IMAGE_ERROR:
