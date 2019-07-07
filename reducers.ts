@@ -46,6 +46,17 @@ const AuthReducer = (state = INITIAL_STATE, action: any) => {
             }
         case Auth.UPDATE_PROFILE_IMAGE_ERROR:
             return { ...state, loading: false }
+
+        case Auth.PASSWORD_REMINDER_REQUEST:
+            return { ...state, loading: true }
+        case Auth.PASSWORD_REMINDER_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case Auth.PASSWORD_REMINDER_ERROR:
+            return { ...state, loading: false }
+
         default:
             return state;
     }

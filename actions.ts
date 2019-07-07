@@ -25,6 +25,15 @@ export const submitSignUp = (params: {email: string, password: string, displayNa
     }
 };
 
+export const submitPasswordReminder = (params: {email: string}) => {
+    return {
+        type: Auth.PASSWORD_REMINDER_REQUEST,
+        payload: {
+            email: params.email,
+        }
+    }
+};
+
 export const submitFacebookLogin = () => {
     return { type: Auth.FACEBOOK_SIGNIN_REQUEST }
 };

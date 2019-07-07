@@ -9,6 +9,7 @@ import Drawer from './Drawer';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import MyPageScreen from "../screens/MyPageScreen";
+import PasswordReminderScreen from "../screens/PasswordReminderScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import SpringButton from '../components/SpringButton';
 import AvatorIcon from "../containers/AvatorIcon";
@@ -52,7 +53,8 @@ const AppStack = createStackNavigator(
             screen: EditProfileScreen
         },
         SignIn: SignInScreen,
-        SignUp: SignUpScreen
+        SignUp: SignUpScreen,
+        PasswordReminder: PasswordReminderScreen
     }
 );
 

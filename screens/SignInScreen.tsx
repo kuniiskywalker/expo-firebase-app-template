@@ -21,6 +21,12 @@ export default class SignInScreen extends React.Component<Props> {
                 <FacebookLoginButton />
                 <EmailAndPasswordSignInForm />
                 <Button
+                    title={"パスワードを忘れた方はこちら"}
+                    onPress={() => {
+                        navigate('PasswordReminder');
+                    }}
+                />
+                <Button
                     title={"アカウントをお持ちでない方はこちら"}
                     onPress={() => {
                         navigate('SignUp');

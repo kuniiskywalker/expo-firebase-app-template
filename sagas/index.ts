@@ -95,6 +95,19 @@ function* handleSignOut() {
     }
 }
 
+function* handlePasswordReminder(action: any) {
+    try {
+        const { email } = action.payload;
+
+        yield call([firebaseAuth, firebaseAuth.sendPasswordResetEmail], email);
+
+        yield put({ type: Auth.PASSWORD_REMINDER_SUCCESS});
+
+    } catch (err) {
+        yield put({ type: Auth.PASSWORD_REMINDER_ERROR});
+    }
+}
+
 export default function* rootSaga() {
     yield all([
         yield takeEvery( Auth.FACEBOOK_SIGNIN_REQUEST, handleFacebookSignIn ),
@@ -102,5 +115,6 @@ export default function* rootSaga() {
         yield takeEvery( Auth.UPDATE_PROFILE_IMAGE_REQUEST, handleUpdateProfileImage ),
         yield takeEvery( Auth.SIGNUP_REQUEST, handleSignUp ),
         yield takeEvery( Auth.SIGNOUT_REQUEST, handleSignOut ),
+        yield takeEvery( Auth.PASSWORD_REMINDER_REQUEST, handlePasswordReminder ),
     ]);
 }
