@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { submitSignUp } from '../actions';
+import SpringButton from '../components/SpringButton';
 
 interface Props {
     email: string;
@@ -40,13 +41,14 @@ class EmailAndPasswordSignUpForm extends React.Component<Props, State> {
         if (this.props.loading) {
             return <ActivityIndicator size="small"/>
         }
-
         return (
-            <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle}>
+            <SpringButton
+                onPress={this.onButtonPress.bind(this)}
+                style={styles.buttonStyle}>
                 <Text style={styles.textStyle}>
                     アカウントを作成する
                 </Text>
-            </TouchableOpacity>
+            </SpringButton>
         )
     }
 

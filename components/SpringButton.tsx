@@ -38,6 +38,8 @@ class SpringButton extends React.Component<Props> {
                     style={[
                         this.props.style,
                         {
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             transform: [{ scale: this.scale }],
                         },
                     ]}
