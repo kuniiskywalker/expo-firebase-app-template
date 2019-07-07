@@ -9,3 +9,6 @@ npm-debug.*
 .idea
 
 app.json
+
+yarn-error.log
+.expo-shared
