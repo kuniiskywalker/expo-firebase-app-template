@@ -7,3 +7,5 @@ npm-debug.*
 *.mobileprovision
 
 .idea
+
+app.json
