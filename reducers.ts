@@ -29,8 +29,6 @@ const AuthReducer = (state = INITIAL_STATE, action: any) => {
 
         case Auth.SIGNOUT_SUCCESS:
             return INITIAL_STATE
-        case Auth.SIGNOUT_SUCCESS:
-            return INITIAL_STATE
         case Auth.SIGNIN_ERROR:
         case Auth.SIGNUP_ERROR:
         case Auth.SIGNOUT_ERROR:

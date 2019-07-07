@@ -7,9 +7,15 @@ import { signInWithFacebook } from '../utils/auth'
 function* handleFacebookSignIn() {
     try {
         const user = yield call(signInWithFacebook);
-        yield put({type: Auth.FACEBOOK_SIGNIN_SUCCESS, user});
+        yield put({type: Auth.FACEBOOK_SIGNIN_SUCCESS});
+        yield put({type: Auth.SIGNIN_SUCCESS, payload: {
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+        }});
     } catch (error) {
         yield put({type: Auth.FACEBOOK_SIGNIN_ERROR});
+        yield put({type: Auth.SIGNIN_ERROR});
     }
 }
 
@@ -17,7 +23,11 @@ function* handleSignIn(action: any) {
     try {
         const { email, password } = action.payload;
         const user = yield call(firebaseAuth.signInWithEmailAndPassword, email, password);
-        yield put({type: Auth.SIGNIN_SUCCESS, user});
+        yield put({type: Auth.SIGNIN_SUCCESS, payload: {
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+        }});
     } catch (error) {
         yield put({type: Auth.SIGNIN_ERROR});
     }
