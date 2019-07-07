@@ -83,11 +83,24 @@ function* handleSignUp(action: any) {
     }
 }
 
+function* handleSignOut() {
+    try {
+
+        yield call([firebaseAuth, firebaseAuth.signOut])
+
+        yield put({ type: Auth.SIGNOUT_SUCCESS});
+
+    } catch (err) {
+        yield put({ type: Auth.SIGNOUT_ERROR});
+    }
+}
+
 export default function* rootSaga() {
     yield all([
         yield takeEvery( Auth.FACEBOOK_SIGNIN_REQUEST, handleFacebookSignIn ),
         yield takeEvery( Auth.SIGNIN_REQUEST, handleSignIn ),
         yield takeEvery( Auth.UPDATE_PROFILE_IMAGE_REQUEST, handleUpdateProfileImage ),
         yield takeEvery( Auth.SIGNUP_REQUEST, handleSignUp ),
+        yield takeEvery( Auth.SIGNOUT_REQUEST, handleSignOut ),
     ]);
 }

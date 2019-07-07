@@ -26,6 +26,9 @@ const AuthReducer = (state = INITIAL_STATE, action: any) => {
                 loading: false,
                 loggedIn: true
             }
+
+        case Auth.SIGNOUT_SUCCESS:
+            return INITIAL_STATE
         case Auth.SIGNOUT_SUCCESS:
             return INITIAL_STATE
         case Auth.SIGNIN_ERROR:
