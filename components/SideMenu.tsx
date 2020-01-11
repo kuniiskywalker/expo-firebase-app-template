@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationActions, NavigationScreenProp } from 'react-navigation';
 import { ScrollView, Text, View } from 'react-native';
-import { DrawerActions } from 'react-navigation';
+import { DrawerActions } from 'react-navigation-drawer';
 
 interface Props {
     navigation: NavigationScreenProp<any, any>;

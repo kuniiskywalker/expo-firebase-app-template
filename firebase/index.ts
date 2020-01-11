@@ -1,7 +1,8 @@
 const firebase = require("firebase").default;
-import * as Expo from 'expo'
 
-const manifest = Expo.Constants.manifest;
+import Constants from 'expo-constants';
+
+const manifest = Constants.manifest;
 
 let firebaseConfig = {};
 if (manifest.extra && manifest.extra.firebase) {

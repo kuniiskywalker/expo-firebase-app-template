@@ -27,7 +27,7 @@ const Home = createMaterialTopTabNavigator(
     },
     {
         initialRouteName: 'Tab1',
-        headerMode: 'none',
+        // headerMode: 'none',
         tabBarOptions: {
             scrollEnabled: true,
             labelStyle: {

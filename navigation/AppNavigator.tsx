@@ -1,5 +1,6 @@
 import React from 'react';
-import { createSwitchNavigator, createStackNavigator, createAppContainer, NavigationScreenProps } from 'react-navigation';
+import { createSwitchNavigator, createAppContainer, NavigationScreenProps } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -28,21 +29,22 @@ const AppStack = createStackNavigator(
     {
         Main: {
             screen: Drawer,
-            navigationOptions: ({ navigation }: NavigationScreenProps) => {
+            navigationOptions: ({ navigation }: any) => {
                 return {
                     title: 'sample app',
-                    headerLeft: (
-                        <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
-                    ),
-                    headerRight: (
-                        <SpringButton
-                            onPress={() => {
-                                navigation.navigate("MyPage")
-                            }}
-                        >
-                            <AvatorIcon />
-                        </SpringButton>
-                    )
+                    headerLeft: () => {
+                        return <Icon name="bars" size={24} onPress={()=>{navigation.openDrawer()}} style={{paddingLeft:20}}/>
+                    },
+                    headerRight: () => {
+                        return (
+                            <SpringButton
+                                onPress={() => {
+                                    navigation.navigate("MyPage")
+                                }}>
+                                <AvatorIcon/>
+                            </SpringButton>
+                        )
+                    }
                 };
             }
         },

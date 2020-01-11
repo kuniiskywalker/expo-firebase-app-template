@@ -3,7 +3,7 @@ import React from 'react';
 import Tab from './Tab';
 
 import SideMenu from '../components/SideMenu';
-import { createDrawerNavigator } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 export default createDrawerNavigator(
     {
@@ -13,6 +13,6 @@ export default createDrawerNavigator(
     }, {
         drawerWidth: 300,
         initialRouteName: 'Home',
-        contentComponent:({navigation})=> <SideMenu navigation={navigation} />,
+        contentComponent:({navigation}: any)=> <SideMenu navigation={navigation} />,
     }
 );
